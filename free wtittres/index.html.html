@@ -1,0 +1,198 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>writers Hub</title>
+  <style>
+    .feature-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #14ff20;
+    color: #333333;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+    body {
+    font-family: 'Poppins', sans-serif; 
+    margin: 0;
+    padding: 0;
+    background: #ff14d8 url('https://www.transparenttextures.com/patterns/flowers.png'); 
+    background-size: cover;
+    color: #ffffff;
+}
+
+nav {
+    background: #005288;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ffd700;
+}
+
+.hero {
+    background: rgba(136, 0, 68, 0.8);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 60px 20px;
+    border-radius: 10px;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.hero p {
+    font-size: 1.3em;
+    font-style: italic;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ff69b4;
+    border-radius: 12px;
+    width: 250px;
+    padding: 20px;
+    margin: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: scale(1.05);
+}
+
+.feature-card h2 {
+    margin-bottom: 10px;
+    color: #880044;
+    font-family: 'Dancing Script', cursive;
+}
+
+footer {
+    background: #333333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.latest {
+    margin-top: 40px;
+}
+
+.poem-card {
+    border: 2px solid #ff69b4;
+    background: #008817;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 12px;
+    color: #fff;
+    font-family: 'Dancing Script', cursive;
+}
+
+.category {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+em {
+    color: #ffb6c1;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="homepage.html">Homepage</a>
+    <a href="submit.html">Submit your work</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="booksection.html">book section</a>
+    <a href="teacher.html">teacher</a>
+    
+ 
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Welcome to Writters  Hub</h1>
+    <p>A creative space for students to write, share, and celebrate literary works.</p>
+  </div>
+
+  <!-- Features Section -->
+  <div class="container">
+    <h2 style="text-align:center;">Explore writers Hub</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h2>Submit  your work</h2>
+        <p><font color="brown">Students can write and submit their works for review.</font></p>
+        <a href="submit.html">Go to Submit Page</a>
+      </div>
+      
+      <div class="feature-card">
+        <h2>  Gallery</h2>
+        <p><font color="brown">Read approved poems and enjoy .</font></p>
+        <a href="gallery.html">View Gallery</a>
+      </div>
+      
+      
+    
+    
+  <!-- Footer -->
+  <footer>
+    <p>&copy; writers hub  | Created by DIANA JOHN TESHA</p>
+  </footer>
+
+  <!-- Script to show latest approved poems -->
+  <script>
+    const approvedPoems = JSON.parse(localStorage.getItem("approvedworks")) || [];
+    const latestDiv = document.getElementById("latestworks");
+
+    if (approvedworks.length === 0) {
+      latestDiv.innerHTML = "<p>No approved work  yet. Check back soon!</p>";
+    } else {
+      // Show up to 3 latest works
+      approvedworks.slice(-3).reverse().forEach(work => {
+        const card = document.createElement("div");
+        card.className = "work-card";
+        card.innerHTML = `
+          <h3>${work.title}</h3>
+          <p class="category">Category: ${work.category}</p>
+          <p>${work.work.replace(/\n/g, "<br>")}</p>
+          <p><em>by ${work.author}</em></p>
+        `;
+        latestDiv.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

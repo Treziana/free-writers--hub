@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>writers Hub</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif; 
+      margin: 0;
+      padding: 0;
+      background: #14d0ff url('https://www.transparenttextures.com/patterns/flowers.png'); 
+      background-size: cover;
+      color: #ffffff;
+    }
+
+    nav {
+      background: #000288;
+      padding: 10px;
+    }
+
+    nav a {
+      color: rgb(255, 255, 255);
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .hero {
+      background: rgba(136, 0, 68, 0.8);
+      color: rgb(255, 255, 255);
+      text-align: center;
+      padding: 60px 20px;
+      border-radius: 10px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      font-style: italic;
+    }
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .latest {
+      margin-top: 40px;
+    }
+
+    .poem-card {
+      border: 2px solid #ff69b4;
+      background: #008817;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 12px;
+      color: #ffffff;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .category {
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    em {
+      color: #ffb6c1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Homepage</a>
+    <a href="submit.html">Submit your work</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Welcome to Gallery of Literary Works</h1>
+    <p>A creative space for students to write, share, and celebrate literary works.</p>
+  </div>
+
+  <!-- Features Section -->
+  <div class="container">
+    <h2 style="text-align:center;">Explore free Writers Hub</h2>
+    
+    <!-- Latest Approved literary works Preview -->
+    <div class="latest">
+      <h2 style="text-align:center;">Latest Approved Literary Works</h2>
+      <div id="gallery"></div> <!-- ✅ corrected ID -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; Writers Hub | Created by DIANA JOHN TESHA</p>
+  </footer>
+
+  <!-- Script to show latest approved work-->
+ <script>
+  function loadGallery() {
+    let approvedwork = JSON.parse(localStorage.getItem("approvedwork")) || [];
+    const container = document.getElementById("gallery");
+    container.innerHTML = "";
+
+    if (approvedwork.length === 0) {
+      container.innerHTML = "<p>No approved works yet.</p>";
+    } else {
+      approvedwork.forEach(work => {
+        const div = document.createElement("div");
+        div.className = "poem-card";
+        div.innerHTML = `
+          <h3>${work.title} (${work.category})</h3>
+          <p><strong>Author:</strong> ${work.author}</p>
+          <p>${work.text.replace(/\n/g,"<br>")}</p>
+          <p><em>by ${work.author}</em></p>
+        `;
+        container.appendChild(div);
+      });
+    }
+  }
+  window.onload = loadGallery;
+</script>
+</body>
+</html>

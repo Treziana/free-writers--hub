@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher Review - Writers Hub</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif; 
+      margin: 0;
+      padding: 0;
+      background: #ff14d8 url('https://www.transparenttextures.com/patterns/flowers.png'); 
+      background-size: cover;
+      color: #ffffff;
+    }
+
+    nav {
+      background: #005288;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .poem-card {
+      border: 2px solid #ff69b4;
+      background: #008817;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    button {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .approve {
+      background: #14ff20;
+      color: #333;
+    }
+
+    .reject {
+      background: #ff2020;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Homepage</a>
+    <a href="submit.html">Submit Work</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="teacher.html">Teacher</a>
+  </nav>
+
+  <div class="container">
+    <h1>Teacher Review Page</h1>
+    <div id="submissions"></div>
+  </div>
+
+  <script>
+    function loadSubmissions() {
+      let teacherPending = JSON.parse(localStorage.getItem("teacherPending")) || [];
+      const container = document.getElementById("submissions");
+      container.innerHTML = "";
+
+      if (teacherPending.length === 0) {
+        container.innerHTML = "<p>No pending works.</p>";
+        return;
+      }
+
+      teacherPending.forEach((work, index) => {
+        const div = document.createElement("div");
+        div.className = "poem-card";
+        div.innerHTML = `
+          <h3>${work.title} (${work.category})</h3>
+          <p><strong>Author:</strong> ${work.author}</p>
+          <p>${work.text}</p>
+          <button class="approve" onclick="approve(${index})">Approve</button>
+          <button class="reject" onclick="reject(${index})">Reject</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function approve(index) {
+      let teacherPending = JSON.parse(localStorage.getItem("teacherPending")) || [];
+      let approvedwork = JSON.parse(localStorage.getItem("approvedwork")) || [];
+
+      approvedwork.push(teacherPending[index]);
+      localStorage.setItem("approvedwork", JSON.stringify(approvedwork));
+
+      teacherPending.splice(index, 1);
+      localStorage.setItem("teacherPending", JSON.stringify(teacherPending));
+
+      alert("Work approved and added to gallery!");
+      loadSubmissions();
+    }
+
+    function reject(index) {
+      let teacherPending = JSON.parse(localStorage.getItem("teacherPending")) || [];
+
+      teacherPending.splice(index, 1);
+      localStorage.setItem("teacherPending", JSON.stringify(teacherPending));
+
+      alert("Work rejected and deleted!");
+      loadSubmissions();
+    }
+
+    window.onload = loadSubmissions;
+  </script>
+</body>
+</html>

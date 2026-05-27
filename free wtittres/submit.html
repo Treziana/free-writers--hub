@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>writers Hub</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
+    nav { background: #333; padding: 10px; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    .container { width: 60%; margin: auto; padding: 20px; background: white; margin-top: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; }
+    label { font-weight: bold; }
+    input, select, textarea, button { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
+    button { background: #333; color: white; cursor: pointer; }
+    button:hover { background: #555; }
+    .success { color: green; font-weight: bold; text-align: center; }
+     
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ffd700;
+}
+
+.hero {
+    background: rgba(136, 0, 68, 0.8);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 60px 20px;
+    border-radius: 10px;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="homepage.html">Homepage</a>
+    <a href="submit.html">Submit your work</a>
+    <a href="gallery.html">Gallery</a>
+        <a href="teacher.html">teacher</a>
+    
+ 
+  </nav>
+<div class="container">
+    <h1>Submit Your work</h1>
+  <form id="submitForm">
+      <label>Title:</label>
+      <input type="text" name="title" required>
+      
+      <label>Author:</label>
+      <input type="text" name="author" required>
+      
+      <label>Category:</label>
+      <select name="category">
+        <option>play</option>
+        <option>poem</option>
+        <option>novel</option>
+              </select>
+      
+      <label>work:</label>
+      <textarea name="text" rows="100" required></textarea>
+      
+      <button type="submit">Submit</button>
+    </form>
+    <div id="successMessage" style="display:none; color:green;">
+    Work submitted successfully!
+  </div>
+
+<script>
+  document.getElementById("submitForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const title = e.target.title.value;
+    const author = e.target.author.value;
+    const category = e.target.category.value;
+    const text = e.target.text.value;
+
+    // Hifadhi kazi kwenye teacherPending
+    let teacherPending = JSON.parse(localStorage.getItem("teacherPending")) || [];
+    teacherPending.push({ title, author, category, text });
+    localStorage.setItem("teacherPending", JSON.stringify(teacherPending));
+
+    // Onyesha ujumbe wa mafanikio
+    document.getElementById("successMessage").style.display = "block";
+    e.target.reset();
+
+    // ❌ Usitumie tena redirect
+    // window.location.href = "teacher.html";
+  });
+</script>
+</body>
+</html>
