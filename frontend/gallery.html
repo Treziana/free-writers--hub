@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - FreeWritters</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin: 2rem 0;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+    }
+
+    .filters {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #667eea;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      padding: 0.6rem;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
+    }
+
+    .filter-group select:focus,
+    .filter-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .work-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .work-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .work-header {
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .work-title {
+      font-size: 1.3rem;
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .work-author {
+      color: #999;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    .work-meta {
+      display: flex;
+      gap: 1rem;
+      margin: 0.75rem 0;
+      flex-wrap: wrap;
+    }
+
+    .meta-badge {
+      background: #f0f0f0;
+      padding: 0.3rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .meta-badge.category {
+      background: #667eea;
+      color: white;
+    }
+
+    .work-content {
+      flex-grow: 1;
+      margin: 1rem 0;
+    }
+
+    .work-excerpt {
+      color: #666;
+      line-height: 1.6;
+      max-height: 120px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .work-excerpt::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      background: linear-gradient(transparent, white);
+    }
+
+    .work-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+      margin-top: 1rem;
+    }
+
+    .rating {
+      color: #ffc107;
+      font-size: 0.9rem;
+    }
+
+    .read-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 600;
+    }
+
+    .read-btn:hover {
+      background: #764ba2;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: white;
+    }
+
+    .empty-state h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .trending {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .trending h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+
+    .trending-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .trending-item:last-child {
+      border-bottom: none;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.95);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="submit.html">Submit</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>📚 Gallery of Approved Works</h1>
+
+    <div class="filters">
+      <div class="filter-group">
+        <label for="filterCategory">🎭 Filter by Genre</label>
+        <select id="filterCategory">
+          <option value="">All Categories</option>
+          <option value="poem">Poetry</option>
+          <option value="play">Play/Drama</option>
+          <option value="novel">Novel/Story</option>
+          <option value="article">Article</option>
+          <option value="script">Script</option>
+          <option value="essay">Essay</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="searchInput">🔍 Search Works</label>
+        <input type="text" id="searchInput" placeholder="Search title or author...">
+      </div>
+      <div class="filter-group">
+        <label for="sortBy">⭐ Sort By</label>
+        <select id="sortBy">
+          <option value="newest">Newest First</option>
+          <option value="popular">Most Popular</option>
+          <option value="trending">Trending</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <div class="empty-state" style="grid-column: 1/-1;">
+        <h2>Loading works...</h2>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 FreeWritters | Discover & Celebrate Creative Writing</p>
+  </footer>
+
+  <script>
+    function loadGallery() {
+      const approvedworks = JSON.parse(localStorage.getItem('approvedworks')) || [];
+      const gallery = document.getElementById('gallery');
+      
+      function renderGallery() {
+        const category = document.getElementById('filterCategory').value;
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const sort = document.getElementById('sortBy').value;
+
+        let filtered = approvedworks.filter(work => {
+          const matchCategory = !category || work.category === category;
+          const matchSearch = !search || 
+            work.title.toLowerCase().includes(search) ||
+            work.author.toLowerCase().includes(search);
+          return matchCategory && matchSearch;
+        });
+
+        // Sort
+        if (sort === 'newest') {
+          filtered.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        }
+
+        if (filtered.length === 0) {
+          gallery.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+              <h2>📭 No works found</h2>
+              <p>Be the first to share your creative work!</p>
+            </div>
+          `;
+          return;
+        }
+
+        gallery.innerHTML = filtered.map(work => `
+          <div class="work-card">
+            <div class="work-header">
+              <div class="work-title">${work.title}</div>
+              <div class="work-author">by ${work.anonymous ? 'Anonymous' : work.author}</div>
+            </div>
+            <div class="work-meta">
+              <span class="meta-badge category">📖 ${work.category}</span>
+              <span class="meta-badge">🌍 ${work.language || 'English'}</span>
+            </div>
+            <div class="work-content">
+              <div class="work-excerpt">${work.text}</div>
+            </div>
+            <div class="work-footer">
+              <div class="rating">⭐ 4.8 (12 reviews)</div>
+              <button class="read-btn" onclick="alert('Full reading feature coming soon!')">Read More</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Initial render
+      renderGallery();
+
+      // Event listeners for filters
+      document.getElementById('filterCategory').addEventListener('change', renderGallery);
+      document.getElementById('searchInput').addEventListener('input', renderGallery);
+      document.getElementById('sortBy').addEventListener('change', renderGallery);
+    }
+
+    window.addEventListener('load', loadGallery);
+  </script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - FreeWritters</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9ff;
+      color: #333;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #667eea;
+      margin-bottom: 2rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border-top: 4px solid #667eea;
+    }
+
+    .stat-card h3 {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-subtitle {
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .section {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      color: #667eea;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .submissions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .submission-item {
+      background: #f8f9ff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .submission-info h3 {
+      color: #333;
+      margin-bottom: 0.25rem;
+    }
+
+    .submission-meta {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.5rem;
+    }
+
+    .submission-status {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-end;
+    }
+
+    .status-badge {
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-approved {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn-small:hover {
+      background: #764ba2;
+    }
+
+    .achievements {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+
+    .achievement {
+      text-align: center;
+      padding: 1rem;
+      background: #f8f9ff;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+    }
+
+    .achievement-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .achievement-name {
+      font-size: 0.8rem;
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.95);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .submission-item {
+        grid-template-columns: 1fr;
+      }
+
+      .submission-status {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="submit.html">Submit</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>📊 Your Writer Dashboard</h1>
+
+    <div class="dashboard-grid">
+      <div class="stat-card">
+        <h3>Total Submissions</h3>
+        <div class="stat-value" id="totalSubmissions">0</div>
+        <div class="stat-subtitle">Works in progress or published</div>
+      </div>
+      <div class="stat-card">
+        <h3>Published Works</h3>
+        <div class="stat-value" id="publishedWorks">0</div>
+        <div class="stat-subtitle">Live in gallery</div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Readers</h3>
+        <div class="stat-value" id="totalReaders">0</div>
+        <div class="stat-subtitle">Views across all works</div>
+      </div>
+      <div class="stat-card">
+        <h3>Avg. Rating</h3>
+        <div class="stat-value" id="avgRating">0</div>
+        <div class="stat-subtitle">Community feedback</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📝 Your Recent Submissions</h2>
+      <div id="submissionsList" class="submissions-list">
+        <div class="empty">No submissions yet. Start sharing your work!</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🏆 Your Achievements</h2>
+      <div id="achievementsList" class="achievements">
+        <div class="achievement">
+          <div class="achievement-icon">✍️</div>
+          <div class="achievement-name">First Draft</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-icon">📚</div>
+          <div class="achievement-name">Reader</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-icon">⭐</div>
+          <div class="achievement-name">Appreciated</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>💡 Quick Stats</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 0.5rem;">Most Viewed Work</h3>
+          <p style="color: #999;">Your works are just getting started!</p>
+        </div>
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 0.5rem;">Feedback Trend</h3>
+          <p style="color: #999;">Submit your first work to receive AI feedback</p>
+        </div>
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 0.5rem;">Writing Streak</h3>
+          <p style="color: #999;">Start submitting regularly to build your streak</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 FreeWritters | Track Your Writing Journey</p>
+  </footer>
+
+  <script>
+    function loadDashboard() {
+      const pending = JSON.parse(localStorage.getItem('teacherPending')) || [];
+      const approved = JSON.parse(localStorage.getItem('approvedworks')) || [];
+      
+      // Update stats
+      document.getElementById('totalSubmissions').textContent = pending.length + approved.length;
+      document.getElementById('publishedWorks').textContent = approved.length;
+      document.getElementById('totalReaders').textContent = Math.random() * 1000 | 0;
+      document.getElementById('avgRating').textContent = (4.5 + Math.random()).toFixed(1);
+
+      // Load submissions
+      const submissionsList = document.getElementById('submissionsList');
+      const allSubmissions = [...pending, ...approved];
+
+      if (allSubmissions.length === 0) {
+        submissionsList.innerHTML = '<div class="empty">No submissions yet. <a href="submit.html" style="color: #667eea; text-decoration: underline;">Create your first work!</a></div>';
+        return;
+      }
+
+      submissionsList.innerHTML = allSubmissions.map((submission, index) => {
+        const isApproved = approved.includes(submission);
+        return `
+          <div class="submission-item">
+            <div class="submission-info">
+              <h3>${submission.title}</h3>
+              <div class="submission-meta">
+                ${submission.category} • ${submission.text.length} characters
+              </div>
+            </div>
+            <div class="submission-status">
+              <span class="status-badge ${isApproved ? 'status-approved' : 'status-pending'}">
+                ${isApproved ? '✅ Published' : '⏳ Pending Review'}
+              </span>
+              <button class="btn-small">View Feedback</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.addEventListener('load', loadDashboard);
+  </script>
+</body>
+</html>

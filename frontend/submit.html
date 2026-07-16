@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Your Work - FreeWritters</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #667eea;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 5px rgba(102, 126, 234, 0.2);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 300px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .ai-personas {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .persona-option {
+      position: relative;
+    }
+
+    .persona-option input[type="radio"] {
+      display: none;
+    }
+
+    .persona-label {
+      display: block;
+      padding: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .persona-option input[type="radio"]:checked + .persona-label {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .persona-label:hover {
+      border-color: #667eea;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .success {
+      background: #d4edda;
+      color: #155724;
+      padding: 1rem;
+      border-radius: 5px;
+      text-align: center;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .info-box {
+      background: #f8f9ff;
+      border-left: 4px solid #667eea;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 5px;
+    }
+
+    .char-count {
+      text-align: right;
+      color: #999;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.95);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .ai-personas {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="submit.html">Submit</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>📝 Submit Your Work</h1>
+
+    <div class="success" id="successMessage">
+      ✅ Your work has been submitted successfully! It will be reviewed and analyzed by our AI.
+    </div>
+
+    <div class="info-box">
+      📌 <strong>How it works:</strong> Submit your writing, choose your preferred AI feedback style, and get instant intelligent analysis!
+    </div>
+
+    <form id="submitForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="title">📖 Work Title *</label>
+          <input type="text" id="title" name="title" placeholder="Give your work a captivating title" required>
+        </div>
+        <div class="form-group">
+          <label for="author">✍️ Author Name *</label>
+          <input type="text" id="author" name="author" placeholder="Your name or pen name" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="category">🎭 Genre/Category *</label>
+          <select id="category" name="category" required>
+            <option value="">-- Select a category --</option>
+            <option value="poem">Poetry</option>
+            <option value="play">Play/Drama</option>
+            <option value="novel">Novel/Story</option>
+            <option value="article">Article</option>
+            <option value="script">Script</option>
+            <option value="essay">Essay</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="language">🌍 Language</label>
+          <select id="language" name="language">
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>🤖 AI Feedback Style *</label>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">Choose how you'd like the AI to critique your work:</p>
+        <div class="ai-personas">
+          <div class="persona-option">
+            <input type="radio" id="mentor" name="aiPersona" value="mentor" checked>
+            <label for="mentor" class="persona-label">
+              👨‍🏫 Mentor<br>
+              <span style="font-size: 0.8rem;">Encouraging & supportive</span>
+            </label>
+          </div>
+          <div class="persona-option">
+            <input type="radio" id="critic" name="aiPersona" value="critic">
+            <label for="critic" class="persona-label">
+              🔍 Critic<br>
+              <span style="font-size: 0.8rem;">Direct & analytical</span>
+            </label>
+          </div>
+          <div class="persona-option">
+            <input type="radio" id="coach" name="aiPersona" value="coach">
+            <label for="coach" class="persona-label">
+              💪 Coach<br>
+              <span style="font-size: 0.8rem;">Motivating & practical</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="text">✨ Your Writing *</label>
+        <textarea id="text" name="text" placeholder="Paste your work here... Poems, stories, articles, scripts - any genre welcome!" required></textarea>
+        <div class="char-count"><span id="charCount">0</span> characters</div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="anonymous" id="anonymous">
+          📎 Publish anonymously (your name won't appear in the gallery)
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="allowSharing" id="allowSharing" checked>
+          🔗 Allow others to share my work
+        </label>
+      </div>
+
+      <button type="submit">🚀 Submit for AI Analysis</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 FreeWritters | Submit, Share, Grow</p>
+  </footer>
+
+  <script>
+    // Character count
+    document.getElementById('text').addEventListener('input', (e) => {
+      document.getElementById('charCount').textContent = e.target.value.length;
+    });
+
+    // Form submission
+    document.getElementById('submitForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = {
+        title: document.getElementById('title').value,
+        author: document.getElementById('author').value,
+        category: document.getElementById('category').value,
+        language: document.getElementById('language').value,
+        text: document.getElementById('text').value,
+        aiPersona: document.querySelector('input[name="aiPersona"]:checked').value,
+        anonymous: document.getElementById('anonymous').checked,
+        allowSharing: document.getElementById('allowSharing').checked,
+        timestamp: new Date().toISOString()
+      };
+
+      // Save to pending reviews
+      let teacherPending = JSON.parse(localStorage.getItem('teacherPending')) || [];
+      teacherPending.push(formData);
+      localStorage.setItem('teacherPending', JSON.stringify(teacherPending));
+
+      // Show success message
+      document.getElementById('successMessage').style.display = 'block';
+      document.getElementById('submitForm').style.display = 'none';
+
+      // Reset after 3 seconds
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

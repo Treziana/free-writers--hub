@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeWritters - Share Your Stories</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      padding: 0.5rem 1rem;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+      border-bottom: 2px solid #ffd700;
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      text-align: center;
+      padding: 4rem 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #667eea;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      font-style: italic;
+      color: #666;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-card h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+    }
+
+    .feature-card p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      background: #764ba2;
+    }
+
+    .how-it-works {
+      background: white;
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .how-it-works h2 {
+      text-align: center;
+      color: #667eea;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      background: #f8f9ff;
+      padding: 1.5rem;
+      border-left: 4px solid #667eea;
+      border-radius: 5px;
+    }
+
+    .step h3 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .features-highlight {
+      background: white;
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .features-highlight h2 {
+      text-align: center;
+      color: #667eea;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-item {
+      background: #f8f9ff;
+      padding: 1rem;
+      border-radius: 5px;
+      border-top: 3px solid #764ba2;
+    }
+
+    .feature-item h4 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-item p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.95);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    .gallery-preview {
+      background: white;
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-preview h2 {
+      text-align: center;
+      color: #667eea;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .work-card {
+      background: #f8f9ff;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s;
+    }
+
+    .work-card:hover {
+      background: #eef2ff;
+      transform: translateX(5px);
+    }
+
+    .work-card h3 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+
+    .work-meta {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+
+    .work-excerpt {
+      color: #666;
+      font-size: 0.95rem;
+      margin: 1rem 0;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+      }
+
+      nav a {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="submit.html">Submit Your Work</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <h1>✨ FreeWritters ✨</h1>
+      <p>Share your creative vision with the world. Get intelligent AI feedback, connect with community, and showcase your best work in our curated gallery.</p>
+      <a href="submit.html" class="btn">Start Writing Now</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 style="text-align: center; color: white; font-size: 2rem; margin: 2rem 0;">Why Choose FreeWritters?</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h2>🤖 AI Feedback</h2>
+        <p>Get intelligent, constructive feedback tailored to your genre. Choose from Mentor, Critic, or Coach personas.</p>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+      <div class="feature-card">
+        <h2>🎨 Creative Community</h2>
+        <p>Connect with writers, join circles, and grow together. Peer reviews and collaborative feedback.</p>
+        <a href="#" class="btn">Join Community</a>
+      </div>
+      <div class="feature-card">
+        <h2>📚 Curated Gallery</h2>
+        <p>Showcase your best work in our quality-filtered gallery. Be discovered by passionate readers.</p>
+        <a href="gallery.html" class="btn">Browse Gallery</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="how-it-works">
+      <h2>🚀 How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>1. Upload Your Writing</h3>
+          <p>Submit poems, plays, novels, articles, or scripts in any format. Easy-to-use editor or document upload.</p>
+        </div>
+        <div class="step">
+          <h3>2. AI Analysis</h3>
+          <p>Receive instant, detailed feedback covering grammar, tone, structure, and creative impact.</p>
+        </div>
+        <div class="step">
+          <h3>3. Quality Gate</h3>
+          <p>If your work meets quality standards, it's automatically promoted to the public gallery.</p>
+        </div>
+        <div class="step">
+          <h3>4. Grow & Connect</h3>
+          <p>Track your progress, join writing circles, collaborate with peers, and build your author profile.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="features-highlight">
+      <h2>⭐ Unique Features</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <h4>📝 Mood Analyzer</h4>
+          <p>Detect emotional tone and get suggestions for impact adjustments.</p>
+        </div>
+        <div class="feature-item">
+          <h4>💡 Prompt Generator</h4>
+          <p>Overcome writer's block with AI-powered creative prompts.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🎤 Multi-Media Support</h4>
+          <p>Upload audio, visuals, and video alongside your writing.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🔒 Privacy Options</h4>
+          <p>Publish anonymously or keep feedback private—you control visibility.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🌍 Multilingual</h4>
+          <p>AI translation for global reach and international collaboration.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🏆 Gamification</h4>
+          <p>Earn badges, track milestones, and climb leaderboards.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="gallery-preview">
+      <h2>📖 Latest Works from Our Community</h2>
+      <div id="latestWorks">
+        <p style="text-align: center; color: #999;">Loading latest works...</p>
+      </div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="gallery.html" class="btn">Browse Full Gallery</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 FreeWritters | Empowering writers worldwide | Created with ❤️ for storytellers</p>
+    <p style="margin-top: 1rem; font-size: 0.9rem;">By Treziana | All rights reserved</p>
+  </footer>
+
+  <script>
+    // Load latest works
+    function loadLatestWorks() {
+      const approvedworks = JSON.parse(localStorage.getItem("approvedworks")) || [];
+      const container = document.getElementById("latestWorks");
+      
+      if (approvedworks.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #999;">No approved works yet. Be the first to share!</p>';
+        return;
+      }
+
+      container.innerHTML = '';
+      approvedworks.slice(-3).reverse().forEach(work => {
+        const card = document.createElement("div");
+        card.className = "work-card";
+        const excerpt = work.text.substring(0, 150) + (work.text.length > 150 ? '...' : '');
+        card.innerHTML = `
+          <h3>${work.title}</h3>
+          <div class="work-meta">by ${work.author} • Category: ${work.category}</div>
+          <div class="work-excerpt">${excerpt}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.addEventListener('load', loadLatestWorks);
+  </script>
+</body>
+</html>
